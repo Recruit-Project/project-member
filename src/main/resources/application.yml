@@ -105,3 +105,17 @@ logging:
     jdbc.audit: OFF
     jdbc.resultset: OFF
     jdbc.connection: OFF
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info  # health 및 info endpoint를 외부에 노출
+  endpoint:
+    health:
+      show-details: always   # 헬스체크 상세 정보를 항상 표시
+      probes:
+        enabled: true        # liveness/readiness 프로브 활성화
+  health:
+    readinessstate:
+      enabled: true          # readiness 상태를 별도로 관리
