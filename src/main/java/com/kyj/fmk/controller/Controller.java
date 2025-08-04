@@ -1,5 +1,6 @@
 package com.kyj.fmk.controller;
 
+import com.kyj.fmk.sec.annotation.PublicEndpoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ public class Controller {
     private final KafkaTemplate<String,String> kafkaTemplate;
 
     @RequestMapping("/produce")
+    @PublicEndpoint
     public String test(){
         for(int i=0; i<1000; i++ ){
             kafkaTemplate.send("simpledata",String.valueOf(i)) ;
