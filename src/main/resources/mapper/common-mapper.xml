@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kyj.fmk.common.mapper.CommonMapper">
+
+    <select id="cmCdList" resultType="ResCommonCdDTO" parameterType="ReqCommonCdDTO">
+        /* com.kyj.fmk.common.mapper.CommonMapper.cmCdlist 공통코드 조회 */
+            SELECT CMC.CM_CD
+                 , CMCD.CM_CD_VAL
+                 , CMCD.CM_CD_VAL_NM
+              FROM CM_CM_CD CMC
+        INNER JOIN CM_CM_CD_D CMCD
+                ON CMC.CM_CD = CMCD.CM_CD
+             WHERE 1=1
+        <if test="cmCd != null and cmCd != ''">
+                   AND CMC.CM_CD = #{cmCd}
+        </if>
+        <if test="cmCdVal != null and cmCdVal != ''">
+                   AND CMCD.CM_CD_VAL = #{cmCdVal}
+        </if>
+                   AND CMC.US_YN = 'Y'
+    </select>
+
+
+
+    <select id="skillCdList" resultType="ResSkillCdDTO" parameterType="ReqSkillCdDTO">
+        /* com.kyj.fmk.common.mapper.CommonMapper.skillCdlist 기술스택 조회 */
+        SELECT CSC.SKILL_CD
+             , CSC.SKILL_NM
+             , CSC.SKILL_CD_IMG
+          FROM CM_SKILL_CD CSC
+         WHERE 1=1
+        <if test="skillCd != null and skillCd != ''">
+               AND CSC.SKILL_CD = #{skillCd}
+        </if>
+        <if test="dtyCd != null and dtyCd != ''">
+               AND CSC.DTY_CD = #{dtyCd}
+        </if>
+               AND CSC.US_YN  = 'Y'
+    </select>
+
+
+
+    <select id="dtyCdList" resultType="ResDtyCdDTO" parameterType="ReqDtyCdDTO">
+        /* com.kyj.fmk.common.mapper.CommonMapper.dtyCdList 직무코드 조회 */
+        SELECT CDC.DTY_CD
+             , CDC.DTY_NM
+             , CDC.DTY_CD_IMG
+          FROM CM_DTY_CD CDC
+         WHERE 1=1
+        <if test="dtyCd != null and dtyCd != ''">
+               AND CDC.DTY_CD = #{dtyCd}
+        </if>
+               AND CDC.US_YN  = 'Y'
+    </select>
+</mapper>
+

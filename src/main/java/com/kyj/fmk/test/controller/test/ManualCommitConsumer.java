@@ -1,4 +1,4 @@
-package com.kyj.fmk.controller;
+package com.kyj.fmk.test.controller.test;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;

@@ -1,4 +1,4 @@
-package com.kyj.fmk.controller;
+package com.kyj.fmk.test.controller.test;
 
 import com.kyj.fmk.sec.annotation.PublicEndpoint;
 import lombok.RequiredArgsConstructor;

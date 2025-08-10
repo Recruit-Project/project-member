@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kyj.fmk.sec.mapper.AuthMapper">
+    <select id="isExist" resultType="Boolean" parameterType="String">
+        /* 회원정보 존재여부 */
+            SELECT 1
+              FROM MEMBER
+             WHERE 1=1
+               AND USR_ID = #{usrId}
+               AND IS_DEL <![CDATA[<>]]> 'Y'
+    </select>
+
+    <select id="findByUsrId" resultType="MemberDTO" parameterType="String">
+        /* 회원정보 by usrid */
+            SELECT MEM.USR_SEQ_ID
+                 , MEM.EMAIL
+                 , MEM.USR_ID
+                 , MEM.NICKNAME
+                 , MEM.DTY_CD
+                 , MEM.CAREER
+                 , MEM.ROLE
+                 , M
+              FROM MEMBER MEM
+        INNER JOIN MEMBER_SKILL MES
+                ON MEM.USR_SEQ_ID = MES.USR_SEQ_ID
+         WHERE 1=1
+           AND MEM.USR_ID = #{usrId}
+           AND MEM.IS_DEL <![CDATA[<>]]> 'Y'
+    </select>
+    <insert id="insertMember" parameterType="MemberDTO">
+        INSERT INTO MEMBER
+        (
+          EMAIL
+        , USR_ID
+        , NICKNAME
+        , DTY_CD
+        , CAREER
+         )
+        VALUES
+        (
+          #{email}
+        , #{usrId}
+        , #{nickname}
+        , #{dtyCd}
+        , #{career}
+        )
+    </insert>
+
+
+    <insert id="insertMemberSkill" parameterType="MemberDTO">
+        INSERT INTO MEMBER_SKILL
+        (
+          SKILL_CD
+        , USR_SEQ_ID
+        )
+        VALUES
+        (
+        #{email}
+        , #{skillCd}
+        , #{usrSeqId}
+        )
+    </insert>
+
+
+    <insert id="updateMember" parameterType="MemberDTO">
+        INSERT INTO MEMBER
+        (
+        EMAIL
+        , USR_ID
+        , NICKNAME
+        , DTY_CD
+        , CAREER
+        )
+        VALUES
+        (
+        #{email}
+        , #{usrId}
+        , #{nickname}
+        , #{dtyCd}
+        , #{career}
+        )
+    </insert>
+
+
+    <insert id="updateMemberSkill" parameterType="MemberDTO">
+        INSERT INTO MEMBER
+        (
+        EMAIL
+        , USR_ID
+        , NICKNAME
+        , DTY_CD
+        , CAREER
+        )
+        VALUES
+        (
+        #{email}
+        , #{usrId}
+        , #{nickname}
+        , #{dtyCd}
+        , #{career}
+        )
+    </insert>
+</mapper>
