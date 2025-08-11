@@ -1,8 +1,9 @@
 package com.kyj.fmk.common.controller;
 
-import com.kyj.fmk.common.model.req.ReqCommonCdDTO;
-import com.kyj.fmk.common.model.res.ResCommonCdDTO;
+
 import com.kyj.fmk.common.service.CommonCdService;
+import com.kyj.fmk.core.model.cmcd.req.ReqCommonCdDTO;
+import com.kyj.fmk.core.model.cmcd.res.ResCommonCdDTO;
 import com.kyj.fmk.core.model.dto.ResApiDTO;
 import com.kyj.fmk.sec.annotation.PublicEndpoint;
 import lombok.RequiredArgsConstructor;

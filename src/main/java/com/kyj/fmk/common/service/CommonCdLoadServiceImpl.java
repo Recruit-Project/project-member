@@ -1,11 +1,11 @@
 package com.kyj.fmk.common.service;
 
-import com.kyj.fmk.common.model.req.ReqCommonCdDTO;
-import com.kyj.fmk.common.model.req.ReqDtyCdDTO;
-import com.kyj.fmk.common.model.req.ReqSkillCdDTO;
-import com.kyj.fmk.common.model.res.ResCommonCdDTO;
-import com.kyj.fmk.common.model.res.ResDtyCdDTO;
-import com.kyj.fmk.common.model.res.ResSkillCdDTO;
+import com.kyj.fmk.core.model.cmcd.req.ReqCommonCdDTO;
+import com.kyj.fmk.core.model.cmcd.req.ReqDtyCdDTO;
+import com.kyj.fmk.core.model.cmcd.req.ReqSkillCdDTO;
+import com.kyj.fmk.core.model.cmcd.res.ResCommonCdDTO;
+import com.kyj.fmk.core.model.cmcd.res.ResDtyCdDTO;
+import com.kyj.fmk.core.model.cmcd.res.ResSkillCdDTO;
 import com.kyj.fmk.common.repository.CommonRepository;
 import com.kyj.fmk.core.model.CmCdConst;
 import com.kyj.fmk.core.model.OutPutConst;

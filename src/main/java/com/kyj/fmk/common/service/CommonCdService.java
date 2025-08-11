@@ -1,7 +1,8 @@
 package com.kyj.fmk.common.service;
 
-import com.kyj.fmk.common.model.req.ReqCommonCdDTO;
-import com.kyj.fmk.common.model.res.ResCommonCdDTO;
+
+import com.kyj.fmk.core.model.cmcd.req.ReqCommonCdDTO;
+import com.kyj.fmk.core.model.cmcd.res.ResCommonCdDTO;
 import com.kyj.fmk.core.model.dto.ResApiDTO;
 import org.springframework.http.ResponseEntity;
 
