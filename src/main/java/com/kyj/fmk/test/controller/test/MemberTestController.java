@@ -2,12 +2,10 @@ package com.kyj.fmk.test.controller.test;
 
 import com.kyj.fmk.core.exception.custom.KyjBizException;
 import com.kyj.fmk.core.file.FileService;
-import com.kyj.fmk.core.model.ErrCode;
 import com.kyj.fmk.core.model.dto.ResApiDTO;
 import com.kyj.fmk.core.model.enm.CmErrCode;
 
 import com.kyj.fmk.core.redis.RedisKey;
-import com.kyj.fmk.core.util.CmSelector;
 import com.kyj.fmk.sec.annotation.PublicEndpoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.HashOperations;
@@ -28,8 +26,8 @@ public class MemberTestController {
 
 
     private final RedisTemplate<String,Object> redisTemplate;
-    private final  FileService fileService;
-    private final CmSelector cmSelector;
+
+
 
 
     @PublicEndpoint
@@ -49,7 +47,7 @@ public class MemberTestController {
 
         for(String key2 : keys){
             System.out.println("key2 = " + key2);
-            System.out.println("key2 val= " +  cmSelector.getCdName(RedisKey.CM_CMC_TONE_CD,key2));
+
         }
         return null;
     }

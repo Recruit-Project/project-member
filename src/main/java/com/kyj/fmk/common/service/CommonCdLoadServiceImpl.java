@@ -1,5 +1,7 @@
 package com.kyj.fmk.common.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kyj.fmk.core.model.cmcd.req.ReqCommonCdDTO;
 import com.kyj.fmk.core.model.cmcd.req.ReqDtyCdDTO;
 import com.kyj.fmk.core.model.cmcd.req.ReqSkillCdDTO;
@@ -17,7 +19,9 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 2025-08-10
@@ -74,6 +78,10 @@ public class CommonCdLoadServiceImpl implements CommonCdLoadService{
     @PostConstruct
     @Override
     public void loadSkillCd() {
+
+        Map<String,String> skillMap = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+
         HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
         //기술스택 리스트 조회
         List<ResSkillCdDTO> list = commonRepository.skillCdList(null);
@@ -95,10 +103,21 @@ public class CommonCdLoadServiceImpl implements CommonCdLoadService{
 
             hashOps.put(RedisKey.SKILL_CD_KEY+dto.getSkillCd(),RedisKey.SUFFIX_SKILL_CD_IMG_KEY,dto.getSkillCdImg());
 
+            // dto → JSON 문자열
             //전체조회를 위한 저장
-            redisTemplate.opsForList().rightPushAll(RedisKey.SKILL_CD_KEY_ALL, dto.getSkillCd());
+            String json = null;
+            try {
+                json = objectMapper.writeValueAsString(dto);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+
+            skillMap.put(dto.getSkillCd(), json);
+
             cnt ++;
         }
+
+        hashOps.putAll(RedisKey.SKILL_CD_KEY_ALL, skillMap);
 
         log.info("--------기술코드 적재종료----------");
         log.info("기술코드 적재건수={}",cnt);

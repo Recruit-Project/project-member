@@ -13,7 +13,6 @@ import com.kyj.fmk.core.model.dto.ResApiDTO;
 import com.kyj.fmk.core.model.enm.CmErrCode;
 import com.kyj.fmk.core.redis.RedisKey;
 import com.kyj.fmk.core.service.cmcd.CmCdRedisService;
-import com.kyj.fmk.core.util.CmSelector;
 import com.kyj.fmk.error.MemErrCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +36,7 @@ import java.util.Map;
 public class CommonCdServiceImpl implements CommonCdService {
 
     //공통코드를 간편하게 셀렉트하는 서비스
-    private final CmSelector cmSelector;
-
     private final CmCdRedisService cmCdRedisService;
-    //레디스
-    private final RedisTemplate<String,String> redisTemplate;
 
     //repo
     private final CommonRepository commonRepository;
@@ -99,8 +94,17 @@ public class CommonCdServiceImpl implements CommonCdService {
            if(reqCommonCdDTO.getCmCd() != null && reqCommonCdDTO.getCmCdVal() == null){
 
                //레디스조회
-               list = cmCdRedisService.selectRedisCmCdList(reqCommonCdDTO);
+               Map<String ,String> map = cmCdRedisService.selectRedisCmCdMap(reqCommonCdDTO);
 
+
+               for (Map.Entry<String, String> entry : map.entrySet()) {
+                   ResCommonCdDTO resCommonCdDTO = new ResCommonCdDTO();
+                   resCommonCdDTO.setCmCd(reqCommonCdDTO.getCmCd());
+                   resCommonCdDTO.setCmCdVal(entry.getKey());
+
+                   resCommonCdDTO.setCmCdValNm(entry.getValue());
+                   list.add(resCommonCdDTO);
+               }
                //레디스 조회내용없을 시 대비
                if(list == null){
                    list = commonRepository.cmCdList(reqCommonCdDTO);
